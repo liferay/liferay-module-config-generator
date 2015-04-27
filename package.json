@@ -1,0 +1,44 @@
+{
+  "name": "lfr-module-config-generator",
+  "version": "1.0.0",
+  "description": "Liferay AMD modules config generator",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ipeychev/lfr-module-config-generator.git"
+  },
+  "keywords": [
+    "AMD",
+    "Liferay",
+    "modules",
+    "config",
+    "generate"
+  ],
+  "author": "Iliyan Peychev",
+  "license": "LGPL",
+  "bugs": {
+    "url": "https://github.com/ipeychev/lfr-module-config-generator/issues"
+  },
+  "homepage": "https://github.com/ipeychev/lfr-module-config-generator",
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "gulp-istanbul": "^0.8.1",
+    "gulp-mocha": "^2.0.1",
+    "sinon": "^1.14.1"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.24",
+    "commander": "^2.8.0",
+    "esprima-fb": "^15001.1.0-dev-harmony-fb",
+    "gulp": "^3.8.11",
+    "js-beautify": "^1.5.5",
+    "jsstana": "^0.1.5",
+    "minimatch": "^2.0.4",
+    "recast": "^0.10.12",
+    "update-notifier": "^0.3.2",
+    "walk": "^2.3.9"
+  }
+}
