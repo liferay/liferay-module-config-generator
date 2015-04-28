@@ -8,17 +8,17 @@ var path = require('path');
 describe('ConfigGenerator', function () {
     it('should create config file for module without base config file', function (done) {
         var configGenerator = new ConfigGenerator({
-            args: [path.resolve(__dirname, 'fixture')],
-            config: '__CONFIG__',
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
             filePattern: '**/*.js',
             ignorePath: false,
             moduleConfig: 'bower.json',
-            moduleRoot: path.resolve(__dirname, 'fixture'),
+            moduleRoot: path.resolve(__dirname, 'modal'),
             skipFileOverride: true
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.join(path.resolve(__dirname, 'fixture'), 'expected/expected.js'), 'utf-8'));
+            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/expected.js'), 'utf-8'));
 
             done();
         });

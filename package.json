@@ -2,7 +2,9 @@
   "name": "lfr-module-config-generator",
   "version": "1.0.0",
   "description": "Liferay AMD modules config generator",
-  "main": "bin/index.js",
+  "bin": {
+    "lfr-cfgen": "bin/index.js"
+  },
   "scripts": {
     "test": "gulp test"
   },
@@ -40,5 +42,9 @@
     "recast": "^0.10.12",
     "update-notifier": "^0.3.2",
     "walk": "^2.3.9"
-  }
+  },
+  "engines": {
+	"node": ">=0.12"
+  },
+  "preferGlobal": "true"
 }

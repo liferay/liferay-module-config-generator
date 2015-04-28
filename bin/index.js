@@ -15,7 +15,7 @@ function parseList(value) {
 program
     .usage('[options] <file ...>', parseList)
     .option('-b, --base [file name]', 'Already existing template to be used as base for the parsed configuration')
-    .option('-c, --config [config object]', 'The configuration object in which the modules should be added', String, '__CONFIG__')
+    .option('-c, --config [config variable]', 'The configuration variable to which the modules should be added. Default: __CONFIG__', String, '__CONFIG__')
     .option('-e, --extension [module extension]', 'Use the provided string as an extension instead to get it automatically from the file name. Default: ""', String, '')
     .option('-f, --format [module format]', 'Regex and value which will be applied to the file name when generating the module name. Example: "/_/g,-". Default: ""', parseList)
     .option('-i, --ignorePath [ignore path]', 'Do not create module path and fullPath properties.')
