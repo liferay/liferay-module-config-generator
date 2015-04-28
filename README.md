@@ -4,7 +4,7 @@ Liferay AMD Module config generator
 Generates the config file, needed to load AMD files via combobox in Liferay
 
 ```bash
-Usage: index [options] <file ...>
+  Usage: lfr-cfgen [options] <file ...>
 
   Options:
 

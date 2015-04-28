@@ -1,5 +1,8 @@
-var ConfigGeneraror = require('../lib/config-generator');
-var pkg = require('../package.json');
+#!/usr/bin/env node
+
+var path = require('path');
+var ConfigGeneraror = require(path.join(__dirname, '../lib/config-generator'));
+var pkg = require(path.join(__dirname, '../package.json'));
 var program = require('commander');
 var updateNotifier = require('update-notifier');
 
