@@ -1,6 +1,6 @@
 {
   "name": "lfr-module-config-generator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Liferay AMD modules config generator",
   "bin": {
     "lfr-cfgen": "bin/index.js"
