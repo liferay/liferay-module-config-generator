@@ -16,6 +16,12 @@ gulp.task('test', function(done) {
             });
 });
 
+gulp.task('test:no-coverage', function() {
+    return gulp.src(['lib/config-generator.js',
+        'test/**/*.js', '!test/modal/**/*.js', '!test/expected/**/*.js'])
+            .pipe(mocha());
+});
+
 gulp.task('test-watch', function() {
     gulp.watch('tests/js/**/*.js', ['test']);
 });

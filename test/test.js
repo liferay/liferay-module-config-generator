@@ -14,7 +14,7 @@ describe('ConfigGenerator', function () {
         var configGenerator = new ConfigGenerator({
             args: [path.resolve(__dirname, 'modal')],
             config: '',
-            filePattern: '**/*.js',
+            filePattern: '**/address*.js',
             format: ['/_/g', '-'],
             ignorePath: false,
             moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
@@ -33,7 +33,7 @@ describe('ConfigGenerator', function () {
         var configGenerator = new ConfigGenerator({
             args: [path.resolve(__dirname, 'modal')],
             config: '',
-            filePattern: '**/*.js',
+            filePattern: '**/address*.js',
             ignorePath: false,
             moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
             moduleRoot: path.resolve(__dirname, 'modal'),
@@ -51,7 +51,7 @@ describe('ConfigGenerator', function () {
         var configGenerator = new ConfigGenerator({
             args: [path.resolve(__dirname, 'modal')],
             config: '',
-            filePattern: '**/*.js',
+            filePattern: '**/address*.js',
             ignorePath: false,
             moduleRoot: path.resolve(__dirname, 'modal'),
             skipFileOverride: true
@@ -68,7 +68,7 @@ describe('ConfigGenerator', function () {
         var configGenerator = new ConfigGenerator({
             args: [path.resolve(__dirname, 'modal')],
             config: '',
-            filePattern: '**/*.js',
+            filePattern: '**/address*.js',
             ignorePath: false,
             lowerCase: true,
             moduleRoot: path.resolve(__dirname, 'modal'),
@@ -86,7 +86,7 @@ describe('ConfigGenerator', function () {
         var configGenerator = new ConfigGenerator({
             args: [path.resolve(__dirname, 'modal')],
             config: '',
-            filePattern: '**/*.js',
+            filePattern: '**/address*.js',
             ignorePath: false,
             keepExtension: true,
             lowerCase: true,
@@ -106,7 +106,7 @@ describe('ConfigGenerator', function () {
             args: [path.resolve(__dirname, 'modal')],
             base: path.resolve(__dirname, 'modal/config-base.js'),
             config: '__CONFIG__',
-            filePattern: '**/*.js',
+            filePattern: '**/address*.js',
             ignorePath: false,
             keepExtension: true,
             lowerCase: true,
@@ -116,6 +116,40 @@ describe('ConfigGenerator', function () {
 
         configGenerator.process().then(function(config) {
             assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/expected-with-base.js'), 'utf-8'));
+
+            done();
+        });
+    });
+
+    it('should meta config when META is a function', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/meta1.es.js',
+            ignorePath: false,
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: true
+        });
+
+        configGenerator.process().then(function(config) {
+            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/expected-meta1.js'), 'utf-8'));
+
+            done();
+        });
+    });
+
+    it('should meta config when META is a label', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/meta2.es.js',
+            ignorePath: false,
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: true
+        });
+
+        configGenerator.process().then(function(config) {
+            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/expected-meta2.js'), 'utf-8'));
 
             done();
         });
