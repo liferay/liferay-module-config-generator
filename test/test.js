@@ -132,7 +132,7 @@ describe('ConfigGenerator', function () {
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/expected-meta1.js'), 'utf-8'));
+            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/meta1.js'), 'utf-8'));
 
             done();
         });
@@ -149,7 +149,41 @@ describe('ConfigGenerator', function () {
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/expected-meta2.js'), 'utf-8'));
+            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/meta2.js'), 'utf-8'));
+
+            done();
+        });
+    });
+
+    it('should generate config when define has only one parameter', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/define-one-param.es.js',
+            ignorePath: false,
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: true
+        });
+
+        configGenerator.process().then(function(config) {
+            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/define-one-param.js'), 'utf-8'));
+
+            done();
+        });
+    });
+
+    it('should generate config when define has no dependencies', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/define-no-deps.es.js',
+            ignorePath: false,
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: true
+        });
+
+        configGenerator.process().then(function(config) {
+            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/define-no-deps.js'), 'utf-8'));
 
             done();
         });
