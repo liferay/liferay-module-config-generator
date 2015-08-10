@@ -35,7 +35,6 @@
   "dependencies": {
     "bluebird": "^2.9.34",
     "commander": "^2.8.1",
-    "esprima-fb": "^15001.1.0-dev-harmony-fb",
     "gulp": "^3.9.0",
     "js-beautify": "^1.5.10",
     "jsstana": "^0.1.5",
@@ -45,7 +44,7 @@
     "walk": "^2.3.9"
   },
   "engines": {
-	"node": ">=0.12"
+    "node": ">=0.12"
   },
   "preferGlobal": "true"
 }
