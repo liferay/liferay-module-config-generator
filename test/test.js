@@ -3,7 +3,12 @@
 var assert = require('assert');
 var ConfigGenerator = require('../lib/config-generator');
 var fs = require('fs');
+var normalizeNewline = require('normalize-newline');
 var path = require('path');
+
+function normalizeCR(content) {
+    return normalizeNewline(content).replace(/\\r/g, '');
+}
 
 describe('ConfigGenerator', function () {
     it('should create config file for module without base config file', function (done) {
@@ -23,7 +28,7 @@ describe('ConfigGenerator', function () {
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/expected.js'), 'utf-8'));
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/expected.js'), 'utf-8')));
 
             done();
         });
@@ -41,7 +46,7 @@ describe('ConfigGenerator', function () {
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/expected-no-format.js'), 'utf-8'));
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/expected-no-format.js'), 'utf-8')));
 
             done();
         });
@@ -58,7 +63,7 @@ describe('ConfigGenerator', function () {
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/expected-no-module-config.js'), 'utf-8'));
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/expected-no-module-config.js'), 'utf-8')));
 
             done();
         });
@@ -76,7 +81,7 @@ describe('ConfigGenerator', function () {
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/expected-no-module-config.js'), 'utf-8'));
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/expected-no-module-config.js'), 'utf-8')));
 
             done();
         });
@@ -95,7 +100,7 @@ describe('ConfigGenerator', function () {
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/expected-extension.js'), 'utf-8'));
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/expected-extension.js'), 'utf-8')));
 
             done();
         });
@@ -115,7 +120,7 @@ describe('ConfigGenerator', function () {
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/expected-with-base.js'), 'utf-8'));
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/expected-with-base.js'), 'utf-8')));
 
             done();
         });
@@ -132,7 +137,7 @@ describe('ConfigGenerator', function () {
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/meta1.js'), 'utf-8'));
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/meta1.js'), 'utf-8')));
 
             done();
         });
@@ -149,7 +154,7 @@ describe('ConfigGenerator', function () {
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/meta2.js'), 'utf-8'));
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/meta2.js'), 'utf-8')));
 
             done();
         });
@@ -166,7 +171,7 @@ describe('ConfigGenerator', function () {
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/define-one-param.js'), 'utf-8'));
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/define-one-param.js'), 'utf-8')));
 
             done();
         });
@@ -183,7 +188,7 @@ describe('ConfigGenerator', function () {
         });
 
         configGenerator.process().then(function(config) {
-            assert.strictEqual(config, fs.readFileSync(path.resolve(__dirname, 'expected/define-no-deps.js'), 'utf-8'));
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/define-no-deps.js'), 'utf-8')));
 
             done();
         });
