@@ -192,4 +192,38 @@ describe('ConfigGenerator', function () {
             done();
         });
     });
+
+    it('should normalize the module path', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/windows-path.es.js',
+            ignorePath: false,
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: true
+        });
+
+        configGenerator.process().then(function(config) {
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/windows-path.js'), 'utf-8')));
+
+            done();
+        });
+    });
+
+    it('should normalize the module full path', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/windows-fullpath.es.js',
+            ignorePath: false,
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: true
+        });
+
+        configGenerator.process().then(function(config) {
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/windows-fullpath.js'), 'utf-8')));
+
+            done();
+        });
+    });
 });
