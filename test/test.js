@@ -6,7 +6,7 @@ var fs = require('fs');
 var path = require('path');
 
 function normalizeCR(content) {
-    return content.replace(/\r?\n/g, '');
+    return content.replace(/\r?\n|\\r/g, '');
 }
 
 describe('ConfigGenerator', function () {
