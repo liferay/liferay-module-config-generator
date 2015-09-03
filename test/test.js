@@ -3,11 +3,10 @@
 var assert = require('assert');
 var ConfigGenerator = require('../lib/config-generator');
 var fs = require('fs');
-var normalizeNewline = require('normalize-newline');
 var path = require('path');
 
 function normalizeCR(content) {
-    return normalizeNewline(content).replace(/\\r/g, '');
+    return content.replace(/\r?\n/g, '');
 }
 
 describe('ConfigGenerator', function () {
