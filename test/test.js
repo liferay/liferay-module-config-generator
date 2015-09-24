@@ -2,8 +2,8 @@
 
 var assert = require('assert');
 var ConfigGenerator = require('../lib/config-generator');
-var fs = require('fs');
 var path = require('path');
+var fs = require('fs-extra');
 
 function normalizeCR(content) {
     return content.replace(/\r?\n|\\r/g, '');
@@ -224,6 +224,36 @@ describe('ConfigGenerator', function () {
             assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/windows-fullpath.js'), 'utf-8')));
 
             done();
+        });
+    });
+
+    it('should not wrap lines which contain more than 74 characters (the default in Recast)', function (done) {
+        var tmpFileName = path.join(path.resolve(__dirname, 'modal'), 'long-lines-tmp.es.js');
+
+        fs.copy(path.join(path.resolve(__dirname, 'modal'), 'js/long-lines.es.js'), tmpFileName, function(error) {
+            if (error) {
+                throw error;
+            }
+
+            var configGenerator = new ConfigGenerator({
+                args: [path.resolve(__dirname, 'modal')],
+                config: '',
+                filePattern: tmpFileName,
+                ignorePath: false,
+                moduleRoot: path.resolve(__dirname, 'modal'),
+                skipFileOverride: false
+            });
+
+            configGenerator.process().then(function() {
+                assert.strictEqual(
+                    normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/long-lines.js'), 'utf-8')),
+                    normalizeCR(fs.readFileSync(tmpFileName, 'utf-8'))
+                );
+
+                fs.remove(tmpFileName, function() {
+                    done();
+                });
+            });
         });
     });
 });
