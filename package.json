@@ -1,9 +1,9 @@
 {
-  "name": "lfr-module-config-generator",
-  "version": "1.1.9",
+  "name": "liferay-module-config-generator",
+  "version": "1.1.10",
   "description": "Liferay AMD modules config generator",
   "bin": {
-    "lfr-cfgen": "bin/index.js"
+    "liferay-cfgen": "bin/index.js"
   },
   "scripts": {
     "test": "gulp test"
@@ -45,9 +45,6 @@
     "upath": "^0.1.6",
     "update-notifier": "^0.6.0",
     "walk": "^2.3.9"
-  },
-  "engines": {
-    "node": ">=0.12"
   },
   "preferGlobal": "true"
 }
