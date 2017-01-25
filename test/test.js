@@ -256,4 +256,154 @@ describe('ConfigGenerator', function () {
             });
         });
     });
+
+    it('should rewrite "define" calls if "namespace" option is present', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/namespace-define-skip*.js',
+            format: ['/_/g', '-'],
+            ignorePath: false,
+            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: true,
+            namespace: 'Liferay'
+        });
+
+        configGenerator.process().then(function(config) {
+
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname,
+                'expected/expected-namespace-define-skip-override-config.js'), 'utf-8')));
+
+            var actual = fs.readFileSync(path.resolve(__dirname, 'modal/js/namespace-define-skip-override.es.js'), 'utf-8');
+            var expected = fs.readFileSync(path.resolve(__dirname, 'expected/expected-namespace-define-skip-override.es.js'), 'utf-8');
+
+            assert.strictEqual(normalizeCR(actual), normalizeCR(expected));
+
+            done();
+        });
+    });
+
+    it('should rewrite "define" calls and save the file if "namespace" option is present and "skipFileOverride" option is "false"', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/namespace-define-override*.js',
+            format: ['/_/g', '-'],
+            ignorePath: false,
+            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: false,
+            namespace: 'Liferay'
+        });
+
+        configGenerator.process().then(function(config) {
+
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname,
+                'expected/expected-namespace-define-override-config.js'), 'utf-8')));
+
+            var actual = fs.readFileSync(path.resolve(__dirname, 'modal/js/namespace-define-override.es.js'), 'utf-8');
+            var expected = fs.readFileSync(path.resolve(__dirname, 'expected/expected-namespace-define-override.es.js'), 'utf-8');
+
+            assert.strictEqual(normalizeCR(actual), normalizeCR(expected));
+
+            done();
+        });
+    });
+
+    it('should rewrite "define" calls if "namespace" option is present and change the "namespace" if different', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/namespace-define-change*.js',
+            format: ['/_/g', '-'],
+            ignorePath: false,
+            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: false,
+            namespace: 'MyNameSpace'
+        });
+
+        configGenerator.process().then(function(config) {
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/expected-namespace-define-change-config.js'), 'utf-8')));
+
+            var actualPath = path.resolve(__dirname, 'modal/js/namespace-define-change.es.js');
+            var originalContent = fs.readFileSync(path.resolve(__dirname, 'modal/js/namespace-define-original.es.js'), 'utf-8')
+            var actual = fs.readFileSync(actualPath, 'utf-8');
+            var expected = fs.readFileSync(path.resolve(__dirname, 'expected/expected-namespace-define-change.es.js'), 'utf-8');
+            assert.strictEqual(normalizeCR(actual), normalizeCR(expected));
+
+            fs.writeFileSync(actualPath, originalContent);
+            done();
+        });
+    });
+
+    it('should rewrite "require" calls if "namespace" option is present', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/namespace-require-skip-override*.js',
+            format: ['/_/g', '-'],
+            ignorePath: false,
+            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: true,
+            namespace: 'Liferay'
+        });
+
+        configGenerator.process().then(function(config) {
+            var actual = fs.readFileSync(path.resolve(__dirname, 'modal/js/namespace-require-skip-override.es.js'), 'utf-8');
+            var expected = fs.readFileSync(path.resolve(__dirname, 'expected/expected-namespace-require-skip-override.es.js'), 'utf-8');
+            assert.strictEqual(normalizeCR(actual), normalizeCR(expected));
+
+            done();
+        });
+    });
+
+    it('should rewrite "require" calls and save the file if "namespace" option is present and "skipFileOverride" option is "false"', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/namespace-require-override*.js',
+            format: ['/_/g', '-'],
+            ignorePath: false,
+            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: false,
+            namespace: 'Liferay'
+        });
+
+        configGenerator.process().then(function(config) {
+            var actual = fs.readFileSync(path.resolve(__dirname, 'modal/js/namespace-require-override.es.js'), 'utf-8');
+            var expected = fs.readFileSync(path.resolve(__dirname, 'expected/expected-namespace-require-override.es.js'), 'utf-8');
+            assert.strictEqual(normalizeCR(actual), normalizeCR(expected));
+            done();
+        });
+    });
+
+    it('should rewrite "require" calls if "namespace" option is present and change the "namespace" if different', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/namespace-require-change*.js',
+            format: ['/_/g', '-'],
+            ignorePath: false,
+            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: false,
+            namespace: 'MyNameSpace'
+        });
+
+        configGenerator.process().then(function(config) {
+            var actualPath = path.resolve(__dirname, 'modal/js/namespace-require-change.es.js');
+            var originalContent = fs.readFileSync(path.resolve(__dirname, 'modal/js/namespace-require-original.es.js'), 'utf-8')
+            var actual = fs.readFileSync(actualPath, 'utf-8');
+            var expected = fs.readFileSync(path.resolve(__dirname, 'expected/expected-namespace-require-change.es.js'), 'utf-8');
+
+            assert.strictEqual(normalizeCR(actual), normalizeCR(expected));
+
+            fs.writeFileSync(actualPath, originalContent);
+            done();
+        });
+    });
 });
