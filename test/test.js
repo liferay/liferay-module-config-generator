@@ -21,7 +21,7 @@ describe('ConfigGenerator', function () {
             filePattern: '**/address*.js',
             format: ['/_/g', '-'],
             ignorePath: false,
-            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleConfig: path.resolve(__dirname, 'modal/package.json'),
             moduleRoot: path.resolve(__dirname, 'modal'),
             skipFileOverride: true
         });
@@ -39,7 +39,7 @@ describe('ConfigGenerator', function () {
             config: '',
             filePattern: '**/address*.js',
             ignorePath: false,
-            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleConfig: path.resolve(__dirname, 'modal/package.json'),
             moduleRoot: path.resolve(__dirname, 'modal'),
             skipFileOverride: true
         });
