@@ -25,6 +25,7 @@ program
     .option('-k, --keepExtension [keep file extension]', 'If true, will keep the file extension when it generates module name. Default: false')
     .option('-l, --lowerCase [lower case]', 'Convert file name to lower case before to use it as module name. Default: false')
     .option('-m, --moduleConfig [module configuration]', 'JSON file which contains configuration data for the modules, for example module prefix', String, 'package.json')
+    .option('-n, --namespace [namespace]', 'The namespace that should be used for "define" and "require" calls. Default: ""', String, '')
     .option('-o, --output [file name]', 'Output file to store the generated configuration')
     .option('-p, --filePattern [file pattern]', 'The pattern to be used in order to find files for processing. Default: "**/*.js"', String, '**/*.js')
     .option('-r, --moduleRoot [module root]', 'The folder which will be used as starting point from which the module name should be generated. Default: current working directory', String, process.cwd())
