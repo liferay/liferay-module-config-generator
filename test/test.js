@@ -21,7 +21,7 @@ describe('ConfigGenerator', function () {
             filePattern: '**/address*.js',
             format: ['/_/g', '-'],
             ignorePath: false,
-            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleConfig: path.resolve(__dirname, 'modal/package.json'),
             moduleRoot: path.resolve(__dirname, 'modal'),
             skipFileOverride: true
         });
@@ -39,7 +39,7 @@ describe('ConfigGenerator', function () {
             config: '',
             filePattern: '**/address*.js',
             ignorePath: false,
-            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleConfig: path.resolve(__dirname, 'modal/package.json'),
             moduleRoot: path.resolve(__dirname, 'modal'),
             skipFileOverride: true
         });
@@ -264,7 +264,7 @@ describe('ConfigGenerator', function () {
             filePattern: '**/namespace-define-skip-override*.js',
             format: ['/_/g', '-'],
             ignorePath: false,
-            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleConfig: path.resolve(__dirname, 'modal/package.json'),
             moduleRoot: path.resolve(__dirname, 'modal'),
             skipFileOverride: true,
             namespace: 'Liferay'
@@ -290,7 +290,7 @@ describe('ConfigGenerator', function () {
             filePattern: '**/namespace-define-override*.js',
             format: ['/_/g', '-'],
             ignorePath: false,
-            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleConfig: path.resolve(__dirname, 'modal/package.json'),
             moduleRoot: path.resolve(__dirname, 'modal'),
             skipFileOverride: false,
             namespace: 'MyNameSpace'
@@ -316,7 +316,7 @@ describe('ConfigGenerator', function () {
             filePattern: '**/namespace-define-custom*.js',
             format: ['/_/g', '-'],
             ignorePath: false,
-            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleConfig: path.resolve(__dirname, 'modal/package.json'),
             moduleRoot: path.resolve(__dirname, 'modal'),
             skipFileOverride: false,
             namespace: 'MyNameSpace'
@@ -337,7 +337,7 @@ describe('ConfigGenerator', function () {
             filePattern: '**/namespace-require-skip-override*.js',
             format: ['/_/g', '-'],
             ignorePath: false,
-            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleConfig: path.resolve(__dirname, 'modal/package.json'),
             moduleRoot: path.resolve(__dirname, 'modal'),
             skipFileOverride: true,
             namespace: 'MyNameSpace'
@@ -359,7 +359,7 @@ describe('ConfigGenerator', function () {
             filePattern: '**/namespace-require-override*.js',
             format: ['/_/g', '-'],
             ignorePath: false,
-            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleConfig: path.resolve(__dirname, 'modal/package.json'),
             moduleRoot: path.resolve(__dirname, 'modal'),
             skipFileOverride: false,
             namespace: 'MyNameSpace'
@@ -385,7 +385,7 @@ describe('ConfigGenerator', function () {
             filePattern: '**/namespace-require-custom*.js',
             format: ['/_/g', '-'],
             ignorePath: false,
-            moduleConfig: path.resolve(__dirname, 'modal/bower.json'),
+            moduleConfig: path.resolve(__dirname, 'modal/package.json'),
             moduleRoot: path.resolve(__dirname, 'modal'),
             skipFileOverride: false,
             namespace: 'MyNameSpace'
