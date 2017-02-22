@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var path = require('path');
-var ConfigGeneraror = require(path.join(__dirname, '../lib/config-generator'));
+var ConfigGenerator = require(path.join(__dirname, '../lib/config-generator'));
 var pkg = require(path.join(__dirname, '../package.json'));
 var program = require('commander');
 var updateNotifier = require('update-notifier');
@@ -33,6 +33,6 @@ program
     .version(require('../package.json').version)
     .parse(process.argv);
 
-var configGenerator = new ConfigGeneraror(program);
+var configGenerator = new ConfigGenerator(program);
 
 configGenerator.process();
