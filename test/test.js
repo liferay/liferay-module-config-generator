@@ -6,11 +6,27 @@ var path = require('path');
 var fs = require('fs-extra');
 var sinon = require('sinon');
 
+var tmpFileName;
+
 function normalizeCR(content) {
     return content.replace(/\r?\n|\\r/g, '');
 }
 
 describe('ConfigGenerator', function () {
+    afterEach(function(done) {
+        if (tmpFileName) {
+            fs.remove(tmpFileName, function() {
+                done();
+            });
+        } else {
+            done();
+        }
+    });
+
+    beforeEach(function() {
+        tmpFileName = null;
+    });
+
     it('should create config file for module without base config file', function (done) {
         // "format" is being passed here as an array.
         // when passed from command line, this should be passed just as as string, for example:
@@ -229,7 +245,7 @@ describe('ConfigGenerator', function () {
     });
 
     it('should not wrap lines which contain more than 74 characters (the default in Recast)', function (done) {
-        var tmpFileName = path.join(path.resolve(__dirname, 'modal'), 'long-lines-tmp.es.js');
+        tmpFileName = path.join(path.resolve(__dirname, 'modal'), 'long-lines-tmp.es.js');
 
         fs.copy(path.join(path.resolve(__dirname, 'modal'), 'js/long-lines.es.js'), tmpFileName, function(error) {
             if (error) {
@@ -251,15 +267,13 @@ describe('ConfigGenerator', function () {
                     normalizeCR(fs.readFileSync(tmpFileName, 'utf-8'))
                 );
 
-                fs.remove(tmpFileName, function() {
-                    done();
-                });
+                done();
             });
         });
     });
 
     it('should rewrite "define" calls if "namespace" option is present', function (done) {
-        var tmpFileName = path.join(path.resolve(__dirname, 'modal'), 'namespace-define-override.es.tmp.js');
+        tmpFileName = path.join(path.resolve(__dirname, 'modal'), 'namespace-define-override.es.tmp.js');
 
         fs.copy(path.resolve(__dirname, 'modal/js/namespace-define-override.es.js'), tmpFileName, function(error) {
             if (error) {
@@ -284,15 +298,13 @@ describe('ConfigGenerator', function () {
 
                 assert.strictEqual(normalizeCR(actual), normalizeCR(expected));
 
-                fs.remove(tmpFileName, function() {
-                    done();
-                });
+                done();
             });
         });
     });
 
     it('should not rewrite "custom define" calls even if "namespace" option is present', function (done) {
-        var tmpFileName = path.join(path.resolve(__dirname, 'modal'), 'namespace-define-custom.es.tmp.js');
+        tmpFileName = path.join(path.resolve(__dirname, 'modal'), 'namespace-define-custom.es.tmp.js');
         fs.copy(path.resolve(__dirname, 'modal/js/namespace-define-custom.es.js'), tmpFileName, function(error) {
             if (error) {
                 throw error;
@@ -315,15 +327,13 @@ describe('ConfigGenerator', function () {
                 var expected = fs.readFileSync(path.resolve(__dirname, 'expected/expected-namespace-define-custom.es.js'), 'utf-8');
                 assert.strictEqual(normalizeCR(actual), normalizeCR(expected));
 
-                fs.remove(tmpFileName, function() {
-                    done();
-                });
+                done();
             });
         });
     });
 
     it('should rewrite "require" calls if "namespace" option is present', function (done) {
-        var tmpFileName = path.resolve(path.resolve(__dirname, 'modal'), 'namespace-require-override.es.tmp.js');
+        tmpFileName = path.resolve(path.resolve(__dirname, 'modal'), 'namespace-require-override.es.tmp.js');
 
         fs.copy(path.resolve(__dirname, 'modal/js/namespace-require-override.es.js'), tmpFileName, function(error) {
             if (error) {
@@ -348,15 +358,13 @@ describe('ConfigGenerator', function () {
 
                 assert.strictEqual(normalizeCR(actual), normalizeCR(expected));
 
-                fs.remove(tmpFileName, function() {
-                    done();
-                });
+                done();
             });
         });
     });
 
     it('should not rewrite "custom require" calls even if "namespace" option is present', function (done) {
-        var tmpFileName = path.resolve(path.resolve(__dirname, 'modal'), 'namespace-require-custom.es.tmp.js');
+        tmpFileName = path.resolve(path.resolve(__dirname, 'modal'), 'namespace-require-custom.es.tmp.js');
 
         fs.copy(path.resolve(__dirname, 'modal/js/namespace-require-custom.es.js'), tmpFileName, function(error) {
             if (error) {
@@ -378,17 +386,15 @@ describe('ConfigGenerator', function () {
             configGenerator.process().then(function(config) {
                 var actual = fs.readFileSync(tmpFileName, 'utf-8');
                 var expected = fs.readFileSync(path.resolve(__dirname, 'expected/expected-namespace-require-custom.es.js'), 'utf-8');
-                assert.strictEqual(normalizeCR(actual), normalizeCR(expected));
+                assert.strictEqual(normalizeCR(actual), normalizeCR('expected'));
 
-                fs.remove(tmpFileName, function() {
-                    done();
-                });
+                done();
             });
         });
     });
 
     it('should save a modified file only once', function(done) {
-        var tmpFileName = path.resolve(path.resolve(__dirname, 'modal'), 'mixed-define-require.es.tmp.js');
+        tmpFileName = path.resolve(path.resolve(__dirname, 'modal'), 'mixed-define-require.es.tmp.js');
 
         fs.copy(path.resolve(__dirname, 'modal/js/mixed-define-require.es.js'), tmpFileName, function(error) {
             if (error) {
@@ -412,9 +418,7 @@ describe('ConfigGenerator', function () {
             configGenerator.process().then(function(config) {
                 assert.strictEqual(spy.callCount, 1);
 
-                fs.remove(tmpFileName, function() {
-                    done();
-                });
+                done();
             });
         });
     });
