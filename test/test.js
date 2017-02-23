@@ -4,6 +4,7 @@ var assert = require('assert');
 var ConfigGenerator = require('../lib/config-generator');
 var path = require('path');
 var fs = require('fs-extra');
+var sinon = require('sinon');
 
 function normalizeCR(content) {
     return content.replace(/\r?\n|\\r/g, '');
@@ -378,6 +379,38 @@ describe('ConfigGenerator', function () {
                 var actual = fs.readFileSync(tmpFileName, 'utf-8');
                 var expected = fs.readFileSync(path.resolve(__dirname, 'expected/expected-namespace-require-custom.es.js'), 'utf-8');
                 assert.strictEqual(normalizeCR(actual), normalizeCR(expected));
+
+                fs.remove(tmpFileName, function() {
+                    done();
+                });
+            });
+        });
+    });
+
+    it('should save a modified file only once', function(done) {
+        var tmpFileName = path.resolve(path.resolve(__dirname, 'modal'), 'mixed-define-require.es.tmp.js');
+
+        fs.copy(path.resolve(__dirname, 'modal/js/mixed-define-require.es.js'), tmpFileName, function(error) {
+            if (error) {
+                throw error;
+            }
+
+            var configGenerator = new ConfigGenerator({
+                args: [path.resolve(__dirname, 'modal')],
+                config: '',
+                filePattern: tmpFileName,
+                format: ['/_/g', '-'],
+                ignorePath: false,
+                moduleConfig: path.resolve(__dirname, 'modal/package.json'),
+                moduleRoot: path.resolve(__dirname, 'modal'),
+                skipFileOverride: false,
+                namespace: 'TestNamespace'
+            });
+
+            var spy = sinon.spy(configGenerator, '_saveFile');
+
+            configGenerator.process().then(function(config) {
+                assert.strictEqual(spy.callCount, 1);
 
                 fs.remove(tmpFileName, function() {
                     done();
