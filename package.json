@@ -40,7 +40,7 @@
     "js-beautify": "^1.5.10",
     "jsstana": "^0.1.5",
     "minimatch": "^3.0.0",
-    "recast": "^0.10.22",
+    "recast": "^0.12.5",
     "source-map": "^0.5.1",
     "upath": "^0.1.6",
     "update-notifier": "^0.6.0",
