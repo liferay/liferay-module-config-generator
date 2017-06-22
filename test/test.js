@@ -386,7 +386,7 @@ describe('ConfigGenerator', function () {
             configGenerator.process().then(function(config) {
                 var actual = fs.readFileSync(tmpFileName, 'utf-8');
                 var expected = fs.readFileSync(path.resolve(__dirname, 'expected/expected-namespace-require-custom.es.js'), 'utf-8');
-                assert.strictEqual(normalizeCR(actual), normalizeCR('expected'));
+                assert.strictEqual(normalizeCR(actual), normalizeCR(expected));
 
                 done();
             });
