@@ -85,6 +85,27 @@ describe('ConfigGenerator', function () {
         });
     });
 
+    it('should create config file when module config is object', function (done) {
+        var configGenerator = new ConfigGenerator({
+            args: [path.resolve(__dirname, 'modal')],
+            config: '',
+            filePattern: '**/address*.js',
+            ignorePath: false,
+            moduleConfig: {
+                name: 'package-name',
+                version: '1.0.0'
+            },
+            moduleRoot: path.resolve(__dirname, 'modal'),
+            skipFileOverride: true
+        });
+
+        configGenerator.process().then(function(config) {
+            assert.strictEqual(normalizeCR(config), normalizeCR(fs.readFileSync(path.resolve(__dirname, 'expected/expected-module-config-object.js'), 'utf-8')));
+
+            done();
+        });
+    });
+
     it('should create config file with module name in lower case', function (done) {
         var configGenerator = new ConfigGenerator({
             args: [path.resolve(__dirname, 'modal')],
