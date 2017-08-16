@@ -4,12 +4,17 @@ var path = require('path');
 var ConfigGenerator = require(path.join(__dirname, '../lib/config-generator'));
 var pkg = require(path.join(__dirname, '../package.json'));
 var program = require('commander');
-var updateNotifier = require('update-notifier');
 
-updateNotifier({
-    packageName: pkg.name,
-    packageVersion: pkg.version
-}).notify();
+try {
+    var updateNotifier = require('update-notifier');
+
+    updateNotifier({
+        packageName: pkg.name,
+        packageVersion: pkg.version
+    }).notify();
+} catch (e) {
+    process.stdout.write((e.stack || e.toString()) + '\n');
+}
 
 function parseList(value) {
     return value.split(',').map(String);
